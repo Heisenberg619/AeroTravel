@@ -25,8 +25,8 @@ class FlightClass(models.Model):
 
 class Flight(models.Model):
     flight_number=models.CharField(max_length=10)
-    departure_airport=models.ForeignKey(Airport,on_delete=models.CASCADE)
-    arrival_airport=models.CharField(Airport,on_delete=models.CASCADE)
+    departure_airport=models.ForeignKey(Airport,on_delete=models.CASCADE,related_name='departure_flights')
+    arrival_airport=models.ForeignKey(Airport,on_delete=models.CASCADE,related_name='arrival_flights')
     departure_time=models.DateTimeField()
     arrival_time=models.DateTimeField()
     price=models.DecimalField(max_digits=10,decimal_places=2)
@@ -44,7 +44,7 @@ class Payment(models.Model):
     reservation=models.ForeignKey(Reservation,on_delete=models.CASCADE)
     amount=models.DecimalField(max_digits=10,decimal_places=2)
     payment_method=models.CharField(max_length=50)
-    payment_status=models.charField(choices=[('paid','Paid'),('failed','Failed')])
+    payment_status=models.CharField(max_length=10,choices=[('paid','Paid'),('failed','Failed')])
     payment_date=models.DateTimeField()
 
 class Ticket(models.Model):

@@ -21,7 +21,7 @@ class FlightClassViewSet(ModelViewSet):
             return [IsAdmin()]
         return super().get_permissions()
     
-class AirportClassViewSet(ModelViewSet):
+class AirportViewSet(ModelViewSet):
     queryset=Airport.objects.all()
     serializer_class=AirportSerializer
     
