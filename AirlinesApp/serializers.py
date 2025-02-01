@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model=Flight
-        fields=['flight_number','departure_airport','arrival_airport','departure_time','arrival_time','price','flight_class','avaliable_seats']
+        fields=['flight_number','departure_airport','arrival_airport','departure_time','arrival_time','price','avaliable_seats']
 
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:

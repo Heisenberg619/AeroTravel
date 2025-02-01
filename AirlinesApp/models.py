@@ -19,9 +19,14 @@ class Airport(models.Model):
     country=models.CharField(max_length=100)
     city=models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.name}"
+
 class FlightClass(models.Model):
     name=models.CharField(max_length=50)
     description=models.TextField()
+    def __str__(self):
+        return f"{self.name}"
 
 class Flight(models.Model):
     flight_number=models.CharField(max_length=10)
@@ -30,8 +35,10 @@ class Flight(models.Model):
     departure_time=models.DateTimeField()
     arrival_time=models.DateTimeField()
     price=models.DecimalField(max_digits=10,decimal_places=2)
-    flight_class=models.ForeignKey(FlightClass,on_delete=models.CASCADE)
     avaliable_seats=models.IntegerField()
+
+    def __str__(self):
+        return f"{self.flight_number}"
 
 class Reservation(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -40,6 +47,9 @@ class Reservation(models.Model):
     status=models.CharField(max_length=20,choices=[('booked','Booked'),('cancelled','Cancelled')])
     created_at=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.id}"
+
 class Payment(models.Model):
     reservation=models.ForeignKey(Reservation,on_delete=models.CASCADE)
     amount=models.DecimalField(max_digits=10,decimal_places=2)
@@ -47,9 +57,15 @@ class Payment(models.Model):
     payment_status=models.CharField(max_length=10,choices=[('paid','Paid'),('failed','Failed')])
     payment_date=models.DateTimeField()
 
+    def __str__(self):
+        return f"{self.id}"
+
 class Ticket(models.Model):
     reservation=models.ForeignKey(Reservation,on_delete=models.CASCADE)
     flight=models.ForeignKey(Flight,on_delete=models.CASCADE)
     ticket_number=models.CharField(max_length=20,unique=True)
     seat_number=models.CharField(max_length=10)
+    
+    def __str__(self):
+        return f"{self.id}"
 
