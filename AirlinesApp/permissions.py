@@ -1,15 +1,14 @@
 from rest_framework.permissions import BasePermission,SAFE_METHODS
 class IsWorker(BasePermission):
     def has_permission(self,request,view):
-        return request.user.role == 'worker'
+        return request.user.groups.filter(name="Workers").exists()
     
 class IsCustomer(BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == 'customer'
-    
+        return request.user.groups.filter(name="Customers").exists()
 class IsAdmin(BasePermission):
     def has_permission(self,request,view):
-        return request.user.role == 'admin' or request.user.is_staff
+        return request.user.role == request.user.is_staff
     
 class IsOwnerOrRead(BasePermission):
     def has_permission(self, request, view):

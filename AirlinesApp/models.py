@@ -1,19 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
-class User(AbstractUser):
-    ROLE_CHOICES=[
-        ('admin','Admin'),
-        ('worker','Worker'),
-        ('customer','Customer'),
-    ]
-
-    first_name=models.CharField(max_length=50)
-    last_name=models.CharField(max_length=50)
-    email=models.EmailField(unique=True)
-    phone_number=models.CharField(max_length=20,blank=True,null=True)
-    role=models.CharField(max_length=20,choices=ROLE_CHOICES,default='customer')
-    
 class Airport(models.Model):
     name=models.CharField(max_length=100)
     country=models.CharField(max_length=100)
