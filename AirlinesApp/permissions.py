@@ -8,7 +8,7 @@ class IsCustomer(BasePermission):
         return request.user.groups.filter(name="Customers").exists()
 class IsAdmin(BasePermission):
     def has_permission(self,request,view):
-        return request.user.role == request.user.is_staff
+        return request.user.is_staff
     
 class IsOwnerOrRead(BasePermission):
     def has_permission(self, request, view):

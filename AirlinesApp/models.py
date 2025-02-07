@@ -49,10 +49,15 @@ class Payment(models.Model):
 
 class Ticket(models.Model):
     reservation=models.ForeignKey(Reservation,on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, null=True, blank=True)
     flight=models.ForeignKey(Flight,on_delete=models.CASCADE)
     ticket_number=models.CharField(max_length=20,unique=True)
     seat_number=models.CharField(max_length=10)
-    
+    issued_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"{self.id}"
 
+class Cart(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    reservations=models.ManyToManyField(Reservation)

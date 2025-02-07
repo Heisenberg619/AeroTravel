@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import User,Flight,Reservation,Ticket,Payment,Airport,FlightClass
+from .models import User,Flight,Reservation,Ticket,Payment,Airport,FlightClass,Cart
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['first_name','last_name','email','role']
+        fields=['username','first_name','last_name','email']
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,12 +15,12 @@ class FlightSerializer(serializers.ModelSerializer):
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model=Reservation
-        fields=['user','flight','number_of_tickets','status']
+        fields=['flight','number_of_tickets','status']
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model=Ticket
-        fields=['reservation','flight','ticket_number','seat_number']
+        fields=['reservation','payment','flight','ticket_number','seat_number','issued_at']
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,3 +37,7 @@ class FlightClassSerializer(serializers.ModelSerializer):
         model=FlightClass
         fields=['name','description']
 
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Cart
+        fields=['user','reservations']

@@ -1,20 +1,32 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, FlightViewSet, FlightClassViewSet, ReservationViewSet, PaymentViewSet, TicketViewSet, AirportViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-router = DefaultRouter()
-router.register(r'reservations', ReservationViewSet)
-router.register(r'payments', PaymentViewSet)
-router.register(r'tickets', TicketViewSet)
-router.register(r'users', UserViewSet)
-router.register(r'airports', AirportViewSet)
-router.register(r'flights', FlightViewSet)
-router.register(r'flight_classes', FlightClassViewSet)
+from .views import (
+    AirportListCreateView, AirportRetrieveUpdateDestroyView,
+    FlightListCreateView, FlightRetrieveUpdateDestroyView,
+    FlightClassListCreateView, FlightClassRetrieveUpdateDestroyView,
+    UserListCreateView, UserRetrieveUpdateDestroyView,
+    ReservationListCreateView, ReservationRetrieveUpdateDestroyView
+)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
     # Token JWT authentication
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('api/airports/',AirportListCreateView.as_view(),name='airport-list-create'),
+    path('api/airports/<int:pk>',AirportRetrieveUpdateDestroyView.as_view(),name='airport-detail'),
+
+    path('api/flights/',FlightListCreateView.as_view(),name='flight-list-create'),
+    path('api/flights/<int:pk>',FlightRetrieveUpdateDestroyView.as_view(),name='flight-detail'),
+
+    path('api/flight_classes/',FlightClassListCreateView.as_view(),name='flight-class-list-create'),
+    path('api/flight_classes/<int:pk>',FlightClassRetrieveUpdateDestroyView.as_view(),name='flight-class-detail'),
+    
+    path('api/users/', UserListCreateView.as_view(), name='user-list-create'),
+    path('api/users/<int:pk>/', UserRetrieveUpdateDestroyView.as_view(), name='user-detail'),
+
+    path('api/reservations/', ReservationListCreateView.as_view(), name='reservation-list-create'),
+    path('api/reservations/<int:pk>/', ReservationRetrieveUpdateDestroyView.as_view(), name='reservation-detail'),
+
+
 ]

@@ -134,3 +134,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),  # Access token traje 10 sati
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),  # Refresh token traje 30 dana
+}
